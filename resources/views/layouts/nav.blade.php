@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark nav_right" style="height:65px; padding-bottom: 0px;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark nav_right" style='position:fixed'>
   <div class='container' id='navbar'>
     <!-- Left Side -->
     <ul class="navbar-nav mr-auto">
@@ -10,15 +10,15 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="#"> Home </a>
+        <a class="nav-link" href="{{ route('home') }}"> Home </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link " href="#"> Add Store </a>
+        <a class="nav-link " href="{{ route('add_store') }}"> Add Store </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link " href="#"> Add Product </a>
+        <a class="nav-link " href="{{ route('add_product') }}"> Add Product </a>
       </li>
     </ul>
 
@@ -35,11 +35,11 @@
             @endif
         @else 
             <li class="nav-item">
-                <a class="nav-link" style='color:white;' href="{{ route('register') }}">{{ Auth::user()->name }}</a>
+                {{ Auth::user()->name }}
             </li>
 
             <li class="nav-item">
-                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); 
+                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); 
                     document.getElementById('logout-form').submit();"> Logout
                 </a>
 

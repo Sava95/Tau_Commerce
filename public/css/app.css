@@ -1,2 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
+.navbar {
+  height: 65px;
+  padding-bottom: 0px;
+  overflow: hidden;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
 
+.form-group.row {
+  margin-bottom: 15px;
+}
