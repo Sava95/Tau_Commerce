@@ -9,7 +9,9 @@ class MainController extends Controller
 {
     public function store()
     {
-        return view('create_store');
+        $uniqueCode = base_convert(sha1(uniqid(mt_rand())), 16, 36);
+
+        return view('create_store',  compact('uniqueCode'));
     }
 
     public function product()
