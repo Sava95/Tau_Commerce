@@ -8,7 +8,7 @@
         </div>
 
         <div class="card-body">
-            <form id='create_store_form' action='' method='POST'> 
+            <form id='create_store_form' action="{{route('create_store')}}" method='POST'> 
                 @csrf
 
                 <!-- Store Name -->
@@ -18,7 +18,7 @@
                     </label>
 
                     <div class="col-md-10" style="padding-right: 0px">
-                        <input type="text" id="store_name" placeholder="Please enter the name of the store"
+                        <input type="text" id="store_name" name="store_name" placeholder="Please enter the name of the store"
                             style="width:60%" class="form-control" autofocus required >
                     </div>
                 </div>
@@ -30,22 +30,29 @@
                     </label>
 
                     <div class="col-md-10" style="padding-right: 0px">
-                        <input type="text" id="store_custom_url" placeholder="Please enter the custom URL"
+                        <input type="text" id="store_custom_url" name="store_custom_url" placeholder="Please enter the custom URL"
                             style="width:30%" class="form-control" autofocus required >
                     </div>
                 </div>
 
                 <!-- Store Code -->
-                <input type='hidden' name="uniqueCode" value="{{$uniqueCode}}"> 
+                <input type='hidden' name="store_code" value="{{$uniqueCode}}"> 
+
                 <!-- Description  -->
-                <div class="form-group ">
-                    <label for="store_code" class="col-md-2" style="padding-right: 0px; margin-top:3px; font-size:20px">
+                <div class="form-group row">
+                    <label for="store_description" class="col-md-2" style="padding-right: 0px; margin-top:3px; font-size:20px">
                         Description:
                     </label>
 
-                    <div class="col-md-10" style="padding-right: 0px; margin-top:20px">
-                        <textarea id="store_code" class='form-control' style="height:100px; width: 100%"> </textarea>
+                    <div class="col-md-10" style="padding-right: 0px">
+                        <textarea id="store_description" name="store_description" class='form-control' style="height:100px; width: 90%">  </textarea>
                     </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class='d-flex justify-content-left'>
+                    <button type='submit' style='margin-top:40px; padding: 8px; font-size:17px; width:26%;'
+                            class="btn btn-lg btn-primary"> Create Store </button>
                 </div>
             </form>
         </div>
