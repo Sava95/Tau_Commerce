@@ -34,8 +34,8 @@
                 </li>
             @endif
         @else 
-            <li class="nav-item">
-                {{ Auth::user()->name }}
+            <li class="nav-item" style='margin-right:500px'>
+                <a class="nav-link"  style='color:white' href="#"> {{ Auth::user()->name }} </a>
             </li>
 
             <li class="nav-item">
