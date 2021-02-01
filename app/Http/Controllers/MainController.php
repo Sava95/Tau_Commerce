@@ -47,8 +47,15 @@ class MainController extends Controller
     public function product()
     {
         $uniqueCode = base_convert(sha1(uniqid(mt_rand())), 16, 36);
-
-        return view('create_product', compact('uniqueCode'));
+        
+        $stores = Store::where('is_deleted', 0)->get();
+        
+        $data = [
+            'uniqueCode' => $uniqueCode,
+            'stores' => $stores,
+        ];
+        
+        return view('create_product')->with($data);
     }
 
     public function create_product(Request $request)

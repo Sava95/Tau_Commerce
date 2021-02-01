@@ -16,12 +16,18 @@
         width: 63.5%"> 
     </div>
 
+    {{$stores->first()->name}}
+
+    @foreach ($stores as $store)
+        {{$store->name}}
+    @endforeach
+
     <!-- Card Form -->
     <div class='card'> 
         <div class="card-header">
-            <div style='font-size:26px; font-weight:600'> Create product </div>
+            <div style='font-size:26px; font-weight:600'> Create product {{$uniqueCode}} </div>
         </div>
-
+       
         <div class="card-body">
             <form id='create_product_form'> 
                 @csrf
@@ -68,16 +74,17 @@
                     </div>
                 </div>
 
-                <!-- Custom URL -->
+                <!-- Select Store -->
                 <div class="form-group row">
                     <label for="custom_url_dropDown" class="col-md-6 d-flex align-items-center" style="padding-right: 0px; font-size:20px; margin-bottom:0px">
                         Do you want to create custom url extension?
                     </label>
 
-                    <div class="col-md-2" style="padding-right: 0px; padding-left: 0px">
+                    <div class="col-md-5" style="padding-right: 0px; padding-left: 0px">
                         <select class="form-control" id="custom_url_dropDown" style="width: 50%; text-align:center; appearance: auto;">
-                            <option value="no" selected="selected"> no </option>
-                            <option value="yes"> yes </option>
+                            @foreach ($stores as $store)
+                                <option value="no" selected="selected"> A </option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
