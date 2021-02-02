@@ -46,6 +46,33 @@ class MainController extends Controller
         return view('create_store',  compact('uniqueCode', 'store_saved'));;
     }
 
+    public function store_products($name, $id)
+    {
+        $product_store = ProductStore::where('store_id', $id)->where('is_deleted', 0)->get();
+        $product_store_id = ProductStore::where('store_id', $id)->where('is_deleted', 0)->pluck('id');
+        
+        // Checking to see if there are any products related to the store
+        if ($product_store->isEmpty()) {
+            $message = "This store doesn't have any products";
+            return view('store_products', compact('message'));
+
+        } else {
+            // Checking if there are multiple products in the store 
+            if (count($product_store) > 1){
+                $products = Product::whereIn('id', [1,2,3])->where('is_deleted', 0)->get();
+                $count = 1111;
+            } else {
+                $products = Product::where('id', $product_store_id)->where('is_deleted', 0)->get();
+                $count = 2222;
+            };
+        }
+
+        $type_1 = gettype(array($product_store_id));
+        $type_2 = gettype([1,2,3]);
+        
+        return view('store_products', compact('products', 'type_1', 'type_2', 'count', 'product_store','product_store_id'));
+    }
+
     // ######################## Product ################################################
     public function product()
     {
@@ -117,6 +144,7 @@ class MainController extends Controller
     {
         $products = Product::where('user_id', Auth::user()->id)->where('is_deleted', 0)->paginate(4);
         
-        return view('your_ads', compact( 'products'));
+        return view('your_ads', compact('products'));
     }
+
 }

@@ -20,7 +20,11 @@
                     @foreach($stores as $store)
                         <tr style='height:70px'>
                             <th scope="row">{{ $store->id }}</th>
-                            <td> {{ $store->name }}</td>
+                            <td> 
+                                <a href="{{route('store_products', [$store->name, $store->id])}}" style='color:black;text-decoration:none'>
+                                    {{ $store->name }}
+                                </a>
+                            </td>
                             <td> {{ $store->description }}</td>
                             <td> {{ $store->created_at }}</td>
                         </tr>
@@ -30,7 +34,7 @@
         </table>
 
         <!-- Products -->
-        <h2 style='padding-bottom:15px'> <strong> Products </strong> </h2>
+        <!-- <h2 style='padding-bottom:15px'> <strong> Products </strong> </h2>
 
         @isset($products)
             @foreach($products as $product)
@@ -66,7 +70,7 @@
             </div>
         </div>
 
-    </div>
+    </div> -->
   
 
 
