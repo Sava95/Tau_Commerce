@@ -112,4 +112,11 @@ class MainController extends Controller
         }
         
     }
+
+    public function user_profile()
+    {
+        $products = Product::where('user_id', Auth::user()->id)->where('is_deleted', 0)->paginate(4);
+        
+        return view('your_ads', compact( 'products'));
+    }
 }

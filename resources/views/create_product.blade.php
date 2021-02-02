@@ -19,7 +19,7 @@
     <!-- Card Form -->
     <div class='card'> 
         <div class="card-header">
-            <div style='font-size:26px; font-weight:600'> Create product {{$uniqueCode}} </div>
+            <div style='font-size:26px; font-weight:600'> Create product </div>
         </div>
        
         <div class="card-body">

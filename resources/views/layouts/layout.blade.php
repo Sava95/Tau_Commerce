@@ -33,7 +33,7 @@
         </div>
 
         <!--  JavaScript -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+         <script src="{{ asset('js/app.js') }}" defer></script>
 
         <!-- AJAX -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -49,5 +49,6 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
+        
     </body>
 </html>

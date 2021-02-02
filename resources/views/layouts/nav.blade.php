@@ -35,7 +35,7 @@
             @endif
         @else 
             <li class="nav-item" style='margin-right:500px'>
-                <a class="nav-link"  style='color:white' href="#"> {{ Auth::user()->name }} </a>
+                <a class="nav-link"  style='color:white' href="{{ route('user_profile') }}"> {{ Auth::user()->name }} </a>
             </li>
 
             <li class="nav-item">
