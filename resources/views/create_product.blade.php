@@ -16,12 +16,6 @@
         width: 63.5%"> 
     </div>
 
-    {{$stores->first()->name}}
-
-    @foreach ($stores as $store)
-        {{$store->name}}
-    @endforeach
-
     <!-- Card Form -->
     <div class='card'> 
         <div class="card-header">
@@ -31,7 +25,7 @@
         <div class="card-body">
             <form id='create_product_form'> 
                 @csrf
-
+                
                 <!-- Product Name -->
                 <div class="form-group row ">
                     <label for="product_name" class="col-md-2" style="padding-right: 0px; margin-top:3px; font-size:20px">
@@ -55,8 +49,8 @@
 
                     <div class="col-md-2" style="padding-right: 0px; padding-left: 0px">
                         <select class="form-control" id="custom_url_dropDown" style="width: 50%; text-align:center; appearance: auto;">
-                            <option value="no" selected="selected"> no </option>
-                            <option value="yes"> yes </option>
+                            <option value="no" selected="selected"> No </option>
+                            <option value="yes"> Yes </option>
                         </select>
                     </div>
                 </div>
@@ -76,16 +70,32 @@
 
                 <!-- Select Store -->
                 <div class="form-group row">
-                    <label for="custom_url_dropDown" class="col-md-6 d-flex align-items-center" style="padding-right: 0px; font-size:20px; margin-bottom:0px">
-                        Do you want to create custom url extension?
+                    <label for="store_dropDown" class="col-md-6 d-flex align-items-center" style="padding-right: 0px; font-size:20px; margin-bottom:0px">
+                        Do you want to put the product in a store?
                     </label>
 
-                    <div class="col-md-5" style="padding-right: 0px; padding-left: 0px">
-                        <select class="form-control" id="custom_url_dropDown" style="width: 50%; text-align:center; appearance: auto;">
-                            @foreach ($stores as $store)
-                                <option value="no" selected="selected"> A </option>
-                            @endforeach
+                    <div class="col-md-2" style="padding-right: 0px; padding-left: 0px">
+                        <select class="form-control" id="store_dropDown" style="width: 50%; text-align:center; appearance: auto;">
+                            <option value="no" selected="selected"> No </option>
+                            <option value="yes"> Yes </option>
                         </select>
+                    </div>
+                </div>
+                
+            
+                <div id='store' style='display:none'> 
+                    <div class="form-group row ">
+                        <label for="store_select" class="col-md-1" style="padding-right: 0px; margin-top:3px; font-size:20px">
+                            Store:
+                        </label>
+                        <div class="col-md-5" style="padding-right: 0px; padding-left: 0px">
+                            <select id="store_select" class='selectpicker' multiple style="width: 50%; text-align:center; appearance: auto;">
+                                @foreach ($stores as $store)
+                                    <option> {{$store->name}} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                            
                     </div>
                 </div>
 

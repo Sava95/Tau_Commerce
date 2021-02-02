@@ -2,6 +2,13 @@
 
 @section('content')
 <div class="container" style='width:65%'>
+    @if ($store_saved == 'True')
+        <div class="alert alert-success" role="alert">
+            Store has been saved! 
+        </div>
+    @endif
+    
+
     <!-- Error Message -->
     @if($errors->any())
         @foreach($errors->all() as $error)

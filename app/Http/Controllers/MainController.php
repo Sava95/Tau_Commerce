@@ -15,8 +15,9 @@ class MainController extends Controller
     public function store()
     {
         $uniqueCode = base_convert(sha1(uniqid(mt_rand())), 16, 36);
+        $store_saved = 'False';
 
-        return view('create_store',  compact('uniqueCode'));
+        return view('create_store',  compact('uniqueCode', 'store_saved'));
     }
 
     public function create_store(Request $request)
@@ -40,7 +41,9 @@ class MainController extends Controller
         $new_store->is_deleted = 0;
         $new_store->save();
 
-        return view('create_store',  compact('uniqueCode'));;
+        $store_saved = 'True';
+
+        return view('create_store',  compact('uniqueCode', 'store_saved'));;
     }
 
     // ######################## Product ################################################
@@ -80,6 +83,7 @@ class MainController extends Controller
             $new_product->sku = $request->input('sku');
             $new_product->price = $request->input('product_price');
             $new_product->user_id = $user->id;
+            $new_product->user_name = $user->name;
             $new_product->description = $request->input('product_description');
             $new_product->is_deleted = $request->input('is_deleted');
 
@@ -90,6 +94,19 @@ class MainController extends Controller
             }
 
             $new_product->save();
+
+        
+            // Creating new ProductStore relation
+            $stores = Store::whereIn('name', $request->input('stores'))->where('is_deleted', 0)->get();
+
+            foreach ($stores as $store) {
+                $new_product_store = new ProductStore;
+                $new_product_store->product_id = $new_product->id;
+                $new_product_store->store_id = $store->id;
+                $new_product_store->is_deleted = 0;
+                $new_product_store->save();
+            }
+            
 
             return response()->json($uniqueCode);
         }

@@ -15,14 +15,28 @@ $(function() {
             $('#product_custom_url').removeAttr('data-error');
         }});
 
+     // Create store select dropdown menu
+     $("#store_dropDown").on('change',function() {
+        if ($(this).val() == "yes") {
+            $('#store').show();
+            $('#store_select').attr('required', '');
+            $('#store_select').attr('data-error', 'This field is required.');
+        } else {
+            $('#store').hide();
+            $('#store_select').removeAttr('required');
+            $('#store_select').removeAttr('data-error');
+        }});
+
     // Creating an AJAX call
-    $("#submit_product").on('click', function(e){ 
+    $("#create_product_form").on('submit', function(e){ 
         e.preventDefault();  
 
         // Form input values 
         let prod_name = document.getElementById('product_name').value;
         let sku = $('input[name="sku"]').attr('value');
         let product_custom_url = document.getElementById('product_custom_url').value;
+        let stores_string = document.getElementsByClassName("btn dropdown-toggle btn-light")[0].title;  // returns a string of selected store names
+        let stores = stores_string.split(', ');
         let product_price = document.getElementById('product_price').value;
         let product_description = document.getElementById('product_description').value;
 
@@ -40,6 +54,7 @@ $(function() {
                 sku: sku,
                 product_custom_url: product_custom_url,
                 product_price: product_price,
+                stores: stores,
                 product_description: product_description,
                 is_deleted: 0,
             },
@@ -71,8 +86,11 @@ $(function() {
                         document.getElementById('error_message_prod_price').style.marginTop = '10px';
                     }
                 } else {
-                    $("#create_product_form").trigger("reset");  // resets the form to initial state
-
+                    // Resets the form to initial state
+                    $("#create_product_form").trigger("reset");  
+                    $('#custom_url').hide();
+                    $('#store').hide();
+                    
                     $("#success_message").show();
                     setTimeout(function() { $("#success_message").fadeOut("slow"); }, 3000);
 
@@ -85,3 +103,4 @@ $(function() {
     });
 
 });
+

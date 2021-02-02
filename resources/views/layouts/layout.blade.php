@@ -1,43 +1,53 @@
 <!doctype html>
-<head>
-<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <!-- Title -->
+        <title>{{ config('app.name', 'Badamum') }}</title>
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+        <!-- Meta Data -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!--  JavaScript -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- AJAX -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
-               integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-               crossorigin="anonymous"> </script>
+        <!-- CSS -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <!-- CSS -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <!-- Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-    <title>{{ config('app.name', 'Badamum') }}</title>
+        <!-- Bootstrap Select Picker-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    </head>
+    <body>
+        <div id="app" class='d-flex flex-column justify-content-between' style='height:130vh' >
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+            @include('layouts.nav')
 
+            <main class="mb-auto py-4" style='margin-top: 65px'>
+                @yield('content')
+            </main>
 
+            @include('layouts.footer')
 
-</head>
-<body>
-    <div id="app" class='d-flex flex-column justify-content-between' style='height:130vh' >
+        </div>
 
-        @include('layouts.nav')
+        <!--  JavaScript -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
 
-        <main class="mb-auto py-4" style='margin-top: 65px'>
-            @yield('content')
-        </main>
+        <!-- AJAX -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-        @include('layouts.footer')
+        <!-- Bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" ></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-    </div>
+        <!-- Bootstrap Select Picker -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
-</body>
+    </body>
 </html>

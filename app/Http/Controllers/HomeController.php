@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Store; 
+use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $stores = Store::where('is_deleted', 0)->get();
+        $products = Product::where('is_deleted', 0)->get();
+
+        return view('home', compact('stores', 'products'));
     }
 }

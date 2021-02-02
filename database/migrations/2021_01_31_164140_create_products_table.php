@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('price');
             $table->string('custom_url');
             $table->unsignedBigInteger('user_id');
+            $table->string('user_name');
             $table->text('description')->nullable();
 
             $table->integer('is_deleted');

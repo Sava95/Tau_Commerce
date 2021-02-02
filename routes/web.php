@@ -15,13 +15,13 @@ use App\Http\Controllers\MainController;
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.layout');
-});
+// Route::get('/', function () {
+//     return view('layouts.layout');
+// });
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 # Store Routes
 Route::get('/add_store', [MainController::class, 'store'])->name('add_store')->middleware('auth');
