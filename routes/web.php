@@ -26,7 +26,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 # Store Routes
 Route::get('/add_store', [MainController::class, 'store'])->name('add_store')->middleware('auth');
 Route::post('/add_store', [MainController::class, 'create_store'])->name('create_store')->middleware('auth');
-Route::get('/stores/{name}/{id}', [MainController::class, 'store_products'])->name('store_products')->middleware('auth');
+Route::get('/store/{name}/{id}', [MainController::class, 'store_products'])->name('store_products')->middleware('auth');
+Route::get('/edit_store/{name}/{id}', [MainController::class, 'edit_store'])->name('edit_store')->middleware('auth');
+Route::post('/add_store/delete', [MainController::class, 'delete_store'])->name('delete_store')->middleware('auth');
 
 
 # Product Routes

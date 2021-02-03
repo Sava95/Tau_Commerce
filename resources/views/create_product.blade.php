@@ -125,10 +125,18 @@
 
                 <!-- Submit Button -->
                 <div class='d-flex justify-content-left'>
-                        <button id='submit_product' type='submit' style='margin-top:40px; padding: 8px; font-size:17px; width:26%;'
-                                class="btn btn-lg btn-primary"> Create Product </button>
+                        <button id='submit_product' type='submit' style='margin-top:40px; padding: 8px; font-size:17px; width:10%;'
+                                class="btn btn-lg btn-primary"> Save </button>
                 </div>
             </form>
+
+            <!-- Delete Form -->
+            <!-- @isset($store)
+            <form id='delete_store_form' action="{{route('delete_store')}}" method='POST'>
+                <button type='submit' style='margin-top:40px; padding: 8px; font-size:17px; width:10%;'
+                        class="btn btn-lg btn-danger"> Save  </button>
+            </form>
+            @endisset -->
         </div>
    </div>
 </div>

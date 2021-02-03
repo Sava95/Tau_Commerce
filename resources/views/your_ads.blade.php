@@ -29,13 +29,14 @@
                 </div>
             </div>
         @endforeach
-    @endisset
+    
 
-    <div class="row">
-        <div class="col-12">
-            {{$products->links()}}
+        <div class="row">
+            <div class="col-12">
+                {{$products->links()}}
+            </div>
         </div>
-    </div>
+    @endisset
 </div>
     
 @endsection

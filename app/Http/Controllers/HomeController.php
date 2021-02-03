@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $stores = Store::where('is_deleted', 0)->get();
+        $stores = Store::where('is_deleted', 0)->paginate(4);
         $products = Product::where('is_deleted', 0)->paginate(4);
 
         return view('home', compact('stores', 'products'));
