@@ -34,7 +34,7 @@
 
                     <div class="col-md-10" style="padding-right: 0px">
                         <input type="text" id="product_name" name='product_name' placeholder="Please enter the name of the product"
-                            style="width:70%" class="form-control" autofocus required >
+                               style="width:70%" class="form-control" autofocus required @isset($product) value='{{$product->name}}' @endisset >
                     </div>
                 </div>
 
@@ -49,8 +49,13 @@
 
                     <div class="col-md-2" style="padding-right: 0px; padding-left: 0px">
                         <select class="form-control" id="custom_url_dropDown" style="width: 50%; text-align:center; appearance: auto;">
-                            <option value="no" selected="selected"> No </option>
-                            <option value="yes"> Yes </option>
+                            @if(empty($product_store))
+                                <option value="no" selected="selected"> No </option>
+                                <option value="yes"> Yes </option>
+                            @else
+                                <option value="no" > No </option>
+                                <option value="yes" selected="selected"> Yes </option>
+                            @endif
                         </select>
                     </div>
                 </div>
@@ -63,7 +68,7 @@
 
                         <div class="col-md-10" style="padding-right: 0px">
                             <input type="text" id="product_custom_url" placeholder="Please enter the custom URL"
-                                style="width:60%" class="form-control" >
+                                style="width:60%" class="form-control" @isset($product) value='{{$product->custom_url}}' @endisset >
                         </div>
                     </div>
                 </div>
@@ -76,8 +81,13 @@
 
                     <div class="col-md-2" style="padding-right: 0px; padding-left: 0px">
                         <select class="form-control" id="store_dropDown" style="width: 50%; text-align:center; appearance: auto;">
-                            <option value="no" selected="selected"> No </option>
-                            <option value="yes"> Yes </option>
+                            @if(empty($product_store))
+                                <option value="no" selected="selected"> No </option>
+                                <option value="yes"> Yes </option>
+                            @else
+                                <option value="no" > No </option>
+                                <option value="yes" selected="selected"> Yes </option>
+                            @endif
                         </select>
                     </div>
                 </div>
@@ -128,15 +138,6 @@
                         <button id='submit_product' type='submit' style='margin-top:40px; padding: 8px; font-size:17px; width:10%;'
                                 class="btn btn-lg btn-primary"> Save </button>
                 </div>
-            </form>
-
-            <!-- Delete Form -->
-            <!-- @isset($store)
-            <form id='delete_store_form' action="{{route('delete_store')}}" method='POST'>
-                <button type='submit' style='margin-top:40px; padding: 8px; font-size:17px; width:10%;'
-                        class="btn btn-lg btn-danger"> Save  </button>
-            </form>
-            @endisset -->
         </div>
    </div>
 </div>

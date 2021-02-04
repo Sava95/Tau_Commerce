@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MainController;
-
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,19 +24,26 @@ Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 # Store Routes
-Route::get('/add_store', [MainController::class, 'store'])->name('add_store')->middleware('auth');
-Route::post('/add_store', [MainController::class, 'create_store'])->name('create_store')->middleware('auth');
-Route::get('/store/{name}/{id}', [MainController::class, 'store_products'])->name('store_products')->middleware('auth');
-Route::get('/edit_store/{name}/{id}', [MainController::class, 'edit_store'])->name('edit_store')->middleware('auth');
-Route::post('/add_store/delete', [MainController::class, 'delete_store'])->name('delete_store')->middleware('auth');
+Route::get('/add_store', [StoreController::class, 'store'])->name('add_store')->middleware('auth');
+Route::post('/add_store', [StoreController::class, 'create_store'])->name('create_store')->middleware('auth');
+
+Route::get('/store/{name}/{id}', [StoreController::class, 'store_products'])->name('store_products')->middleware('auth');
+Route::get('/edit_store/{name}/{id}', [StoreController::class, 'edit_store'])->name('edit_store')->middleware('auth');
+Route::post('/store/delete', [StoreController::class, 'delete_store'])->name('delete_store')->middleware('auth');
 
 
 # Product Routes
-Route::get('/add_product', [MainController::class, 'product'])->name('add_product')->middleware('auth');
-Route::post('/add_product/create', [MainController::class, 'create_product'])->name('create_product')->middleware('auth');
+Route::get('/add_product', [ProductController::class, 'product'])->name('add_product')->middleware('auth');
+Route::post('/add_product/create', [ProductController::class, 'create_product'])->name('create_product')->middleware('auth');
+
+Route::get('/product_details/{store_name}/{store_id}/{product_name}/{product_id}/{curstom_url}', [ProductController::class, 'product_details'])->name('product_details')->middleware('auth');
+Route::get('/product_details/unassigned_store/{product_name}/{product_id}/{curstom_url}', [ProductController::class, 'unassigned_product_details'])->name('unassigned_product_details')->middleware('auth');
+
+Route::get('/edit_product/{name}/{id}/{custom_url}', [ProductController::class, 'edit_product'])->name('edit_product')->middleware('auth');
+Route::post('/product/delete', [ProductController::class, 'delete_product'])->name('delete_product')->middleware('auth');
 
 
 # User Profile (Product List) Route
-Route::get('/your_products', [MainController::class, 'user_profile'])->name('user_profile')->middleware('auth');
+Route::get('/your_products', [HomeController::class, 'user_profile'])->name('user_profile')->middleware('auth');
 
 

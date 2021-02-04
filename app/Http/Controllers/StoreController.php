@@ -5,13 +5,14 @@ use Illuminate\Http\Request;
 use App\Models\Store; 
 use App\Models\Product;
 use App\Models\ProductStore; 
+use App\Models\User; 
+use App\Models\Url; 
 use Illuminate\Support\Facades\Validator;
 
 use Auth;
 
-class MainController extends Controller
+class StoreController extends Controller
 {
-    // ######################## Store ################################################
     public function store()
     {
         $uniqueCode = base_convert(sha1(uniqid(mt_rand())), 16, 36);
@@ -56,9 +57,10 @@ class MainController extends Controller
                 $store->save();
 
                 $stores = Store::where('is_deleted', 0)->paginate(4);
-                $products = Product::where('is_deleted', 0)->paginate(4);
+                $products = Product::paginate(4);
 
-                return view('home', compact('stores', 'products'));
+                $success_message = 'Changes saved';
+                return view('home', compact('stores', 'products', 'success_message'));
             }
         } else {
             // Creating a new Store object
@@ -89,20 +91,30 @@ class MainController extends Controller
         // Checking if the user choose the unassigned products
         if ($id == 0) {
             $store_name = 'Unassigned products';
-
+            
             $products_in_store = ProductStore::where('is_deleted', 0)->pluck('product_id')->toArray();
-            $prducts_all = Product::where('is_deleted', 0)->pluck('id')->toArray();
+            $prducts_all = Product::where('id','>', 0)->pluck('id')->toArray();
 
             $product_ids = array_diff($prducts_all, $products_in_store);
             
-            // Checking if there are multiple products that are unassigned
-            if (count($product_ids) > 1){
-                $products = Product::whereIn('id', $product_ids)->where('is_deleted', 0)->paginate(4);
-                
+            // Checking to see if there are any products related to the store
+            if ($product_ids == '[]') {
+                $message = "This store doesn't have any products yet";
+    
+                return view('store_products', compact('message', 'store_name'));
+    
             } else {
-                $products = Product::where('id', $product_ids)->where('is_deleted', 0)->paginate(1);
-                
-            };
+                // Checking if there are multiple products that are unassigned
+                if (count($product_ids) > 1){
+                    $products = Product::whereIn('id', $product_ids)->paginate(4);
+                    $urls = Url::whereIn('urlable_id', $product_ids )->get()->toArray();
+
+                } else {
+                    $products = Product::where('id', $product_ids)->paginate(1);
+                    $urls = Url::where('urlable_id', $product_ids )->get();
+                };
+            }
+            return view('store_products', compact('products','store_name','urls'));
 
         } else { 
             $store_name = $name;
@@ -111,7 +123,7 @@ class MainController extends Controller
             $product_store_id = ProductStore::where('store_id', $id)->where('is_deleted', 0)->pluck('product_id');
             
             // Checking to see if there are any products related to the store
-            if ($product_store->isEmpty()) {
+            if (count($product_store) < 1) {
                 $message = "This store doesn't have any products yet";
     
                 return view('store_products', compact('message', 'store_name'));
@@ -126,9 +138,13 @@ class MainController extends Controller
                     
                 };
             }
+
+            $store = Store::find($id)->where('is_deleted', 0)->get()->first();
+
+            return view('store_products', compact('products','store_name','store'));
         }
+
         
-        return view('store_products', compact('products','store_name'));
     }
 
     public function edit_store($name, $id)
@@ -149,88 +165,19 @@ class MainController extends Controller
 
         // Deleting store_product relationship
         $store_product = ProductStore::where('store_id', $request->store_id)->first();
-        $store_product->is_deleted = 1;
-        $store_product->save();
-
-        $stores = Store::where('is_deleted', 0)->paginate(4);
-        $products = Product::where('is_deleted', 0)->paginate(4);
-
-        return view('home', compact('stores', 'products'));
-    }
-
-   
-    // ######################## Product ################################################
-    public function product()
-    {
-        $uniqueCode = base_convert(sha1(uniqid(mt_rand())), 16, 36);
-        
-        $stores = Store::where('is_deleted', 0)->get();
-        
-        $data = [
-            'uniqueCode' => $uniqueCode,
-            'stores' => $stores,
-        ];
-        
-        return view('create_product')->with($data);
-    }
-
-    public function create_product(Request $request)
-    {
-        $uniqueCode = base_convert(sha1(uniqid(mt_rand())), 16, 36);
-        $custom_url = uniqid(mt_rand());
-        $user = auth()->user();
-
-        // Validation
-        $validator = Validator::make($request->all(), [
-            'prod_name' => 'required|min:5',
-            'product_price' => 'required|numeric',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
-        } else { 
-            // Creating new Product object
-            $new_product = new Product;
-
-            $new_product->name = $request->input('prod_name');
-            $new_product->sku = $request->input('sku');
-            $new_product->price = $request->input('product_price');
-            $new_product->user_id = $user->id;
-            $new_product->user_name = $user->name;
-            $new_product->description = $request->input('product_description');
-            $new_product->is_deleted = $request->input('is_deleted');
-
-            if ($request->input('product_custom_url') != null) {
-                $new_product->custom_url = $request->input('product_custom_url');
-            } else { 
-                $new_product->custom_url = $custom_url;
-            }
-
-            $new_product->save();
-
-        
-            // Creating new ProductStore relation
-            $stores = Store::whereIn('name', $request->input('stores'))->where('is_deleted', 0)->get();
-
-            foreach ($stores as $store) {
-                $new_product_store = new ProductStore;
-                $new_product_store->product_id = $new_product->id;
-                $new_product_store->store_id = $store->id;
-                $new_product_store->is_deleted = 0;
-                $new_product_store->save();
-            }
-            
-
-            return response()->json($uniqueCode);
+        if (!is_null($store_product)) {
+            $store_product->is_deleted = 1;
+            $store_product->save();
         }
         
+        $stores = Store::where('is_deleted', 0)->paginate(4);
+        $products = Product::paginate(4);
+
+        $delete_message = 'Store has been deleted';
+
+        return view('home', compact('stores', 'products', 'delete_message'));
     }
 
-    public function user_profile()
-    {
-        $products = Product::where('user_id', Auth::user()->id)->where('is_deleted', 0)->paginate(4);
-        
-        return view('your_ads', compact('products'));
-    }
-
+    
+    
 }

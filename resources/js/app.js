@@ -1,9 +1,7 @@
 require('./bootstrap');
 
 $(function() {
-    // ########## Add New Product Page  ##########
-
-    // Create custom URL dropdown menu
+    // Create custom URL dropdown menu - Add new product page
     $("#custom_url_dropDown").on('change',function() {
         if ($(this).val() == "yes") {
             $('#custom_url').show();
@@ -15,7 +13,7 @@ $(function() {
             $('#product_custom_url').removeAttr('data-error');
         }});
 
-     // Create store select dropdown menu
+     // Create store select dropdown menu - Add new product page
      $("#store_dropDown").on('change',function() {
         if ($(this).val() == "yes") {
             $('#store').show();
@@ -26,6 +24,38 @@ $(function() {
             $('#store_select').removeAttr('required');
             $('#store_select').removeAttr('data-error');
         }});
+
+    // Home Page - Success Message Fade Away 
+    if ("#home_success_message") {
+        setTimeout(function() { $("#home_success_message").fadeOut("slow"); }, 3000);
+    }
+
+    // Edit Product 
+    if ("#custom_url_dropDown") {
+       let select_element = document.getElementById('custom_url_dropDown');
+       if (select_element) {
+            let selected_option = select_element.options[select_element.selectedIndex].value;
+
+            if (selected_option == 'yes'){ 
+                $('#custom_url').show();
+                $('#product_custom_url').attr('required', '');
+                $('#product_custom_url').attr('data-error', 'This field is required.');
+            }
+       }
+       
+       let select_element_store = document.getElementById('store_dropDown');
+
+       if (select_element_store) {
+        let selected_option_store = select_element_store.options[select_element_store.selectedIndex].value;
+
+        if (selected_option_store == 'yes'){ 
+         $('#store').show();
+         $('#store_select').attr('required', '');
+         $('#store_select').attr('data-error', 'This field is required.');
+        }
+       }
+       
+    }
 
     // Creating an AJAX call
     $("#create_product_form").on('submit', function(e){ 
@@ -56,7 +86,6 @@ $(function() {
                 product_price: product_price,
                 stores: stores,
                 product_description: product_description,
-                is_deleted: 0,
             },
             dataType : 'json',
 

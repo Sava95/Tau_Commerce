@@ -2,6 +2,19 @@
 
 @section('content')
 <div class="container">
+    <!-- Success Message -->
+    @isset($success_message)
+        <div id="home_success_message" class="alert alert-success" role="alert" style="position:fixed; z-index: 1; margin-left:110px; width:64.2%"> 
+            {{$success_message}}
+        </div>
+    @endisset
+
+    @isset($delete_message)
+        <div id="home_success_message" class="alert alert-success" role="alert" style="position:fixed; z-index: 1; margin-left:110px; width:64.2%">  
+            {{$delete_message}}
+        </div>
+    @endisset
+
   <div class="row d-flex justify-content-center">
     <div class="col-10"> 
         <!-- Stores -->
