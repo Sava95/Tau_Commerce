@@ -107,11 +107,11 @@ class StoreController extends Controller
                 // Checking if there are multiple products that are unassigned
                 if (count($product_ids) > 1){
                     $products = Product::whereIn('id', $product_ids)->paginate(4);
-                    $urls = Url::whereIn('urlable_id', $product_ids )->get()->toArray();
+                    $urls = Url::whereIn('urlable_id', $product_ids )->pluck('url')->toArray();
 
                 } else {
                     $products = Product::where('id', $product_ids)->paginate(1);
-                    $urls = Url::where('urlable_id', $product_ids )->get();
+                    $urls = Url::where('urlable_id', $product_ids )->pluck('url')->toArray();
                 };
             }
             return view('store_products', compact('products','store_name','urls'));
@@ -131,17 +131,19 @@ class StoreController extends Controller
             } else {
                 // Checking if there are multiple products in the store 
                 if (count($product_store) > 1){
-                    $products = Product::whereIn('id', $product_store_id)->where('is_deleted', 0)->paginate(4);
+                    $products = Product::whereIn('id', $product_store_id)->paginate(4);
+                    $urls = Url::whereIn('urlable_id', $product_store_id )->pluck('url')->toArray();
                     
                 } else {
-                    $products = Product::where('id', $product_store_id)->where('is_deleted', 0)->paginate(1);
+                    $products = Product::where('id', $product_store_id)->paginate(1);
+                    $urls = Url::where('urlable_id', $product_store_id )->pluck('url')->toArray();
                     
                 };
             }
 
             $store = Store::find($id)->where('is_deleted', 0)->get()->first();
 
-            return view('store_products', compact('products','store_name','store'));
+            return view('store_products', compact('products','store_name','urls', 'store'));
         }
 
         

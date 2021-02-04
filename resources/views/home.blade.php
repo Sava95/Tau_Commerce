@@ -10,7 +10,7 @@
     @endisset
 
     @isset($delete_message)
-        <div id="home_success_message" class="alert alert-success" role="alert" style="position:fixed; z-index: 1; margin-left:110px; width:64.2%">  
+        <div id="home_success_message" class="alert alert-danger" role="alert" style="position:fixed; z-index: 1; margin-left:110px; width:64.2%">  
             {{$delete_message}}
         </div>
     @endisset

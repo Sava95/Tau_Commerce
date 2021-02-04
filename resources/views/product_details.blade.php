@@ -34,7 +34,7 @@
                             </div>
                         </div> 
 
-                        <a href="{{route('edit_product', [$product->name, $product->id, $product->custom_url])}}" class="btn btn-primary" style='position: absolute; width:75px; margin-top:20px; margin-right:10px'>Edit</a> 
+                        <a href="{{route('edit_product', [$product->name, $product->id, $url->url])}}" class="btn btn-primary" style='position: absolute; width:75px; margin-top:20px; margin-right:10px'>Edit</a> 
 
                         <form style='position: absolute; left:90px' action="{{route('delete_product')}}" method='POST'>
                             @csrf

@@ -81,7 +81,7 @@
 
                     <div class="col-md-2" style="padding-right: 0px; padding-left: 0px">
                         <select class="form-control" id="store_dropDown" style="width: 50%; text-align:center; appearance: auto;">
-                            @if(empty($product_store))
+                            @if(isset($is_edit))
                                 <option value="no" selected="selected"> No </option>
                                 <option value="yes"> Yes </option>
                             @else

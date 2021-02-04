@@ -86,16 +86,18 @@ class ProductController extends Controller
     {        
        $product = Product::find($product_id);
        $user = User::find($product->user_id);
+       $url = Url::where('urlable_id', $product_id )->get()->first();
 
-        return view('product_details', compact('product', 'user'));
+        return view('product_details', compact('product', 'user','url'));
     }
 
     public function unassigned_product_details($product_name, $product_id, $custom_url)
     {        
        $product = Product::find($product_id);
        $user = User::find($product->user_id);
+       $url = Url::where('urlable_id', $product_id )->get()->first();
 
-        return view('product_details', compact('product', 'user'));
+        return view('product_details', compact('product', 'user', 'url'));
     }
 
     public function delete_product(Request $request)
