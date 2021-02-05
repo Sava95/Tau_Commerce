@@ -23,7 +23,7 @@
                             <a href="{{route('product_details', [$store->name, $store->id, $product->name, $product->id, $urls[$index]])}}" style='color:black;text-decoration:none'> {{ $product->name }} 
                             </a>
                         @else 
-                            <a href="{{route('unassigned_product_details', [$product->name, $product->id, $urls[$index]])}}" style='color:black;text-decoration:none'> {{ $product->name }} 
+                            <a href="#" style='color:black;text-decoration:none'> {{ $product->name }} 
                             </a>
                         @endif
                     </strong>

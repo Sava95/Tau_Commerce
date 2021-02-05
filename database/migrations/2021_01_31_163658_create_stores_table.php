@@ -17,7 +17,7 @@ class CreateStoresTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('code')->unique();
-            $table->string('base_url')->unique();
+            $table->string('base_url');
             $table->text('description')->nullable();
             
             $table->integer('is_deleted');

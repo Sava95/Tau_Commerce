@@ -32,7 +32,6 @@ class HomeController extends Controller
         return view('home', compact('stores', 'products'));
     }
 
-    // ######################## User Profile ################################################
     public function user_profile()
     {
         $products = Product::where('user_id', Auth::user()->id)->paginate(6);

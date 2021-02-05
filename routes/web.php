@@ -15,13 +15,12 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('layouts.layout');
-// });
-
 Auth::routes();
 
+# User Profile (Product List) Route
+Route::get('/your_products', [HomeController::class, 'user_profile'])->name('user_profile')->middleware('auth');
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
 
 # Store Routes
 Route::get('/add_store', [StoreController::class, 'store'])->name('add_store')->middleware('auth');
@@ -39,11 +38,10 @@ Route::post('/add_product/create', [ProductController::class, 'create_product'])
 Route::get('/product_details/{store_name}/{store_id}/{product_name}/{product_id}/{curstom_url}', [ProductController::class, 'product_details'])->name('product_details')->middleware('auth');
 Route::get('/product_details/unassigned_store/{product_name}/{product_id}/{curstom_url}', [ProductController::class, 'unassigned_product_details'])->name('unassigned_product_details')->middleware('auth');
 
-Route::get('/edit_product/{name}/{id}/{custom_url}', [ProductController::class, 'edit_product'])->name('edit_product')->middleware('auth');
+Route::get('/edit_product/{store_id}/{product_name}/{product_id}/{custom_url}', [ProductController::class, 'edit_product'])->name('edit_product')->middleware('auth');
+Route::post('/edit_product/save', [ProductController::class, 'save_edit_product'])->name('save_edit_product')->middleware('auth');
+
 Route::post('/product/delete', [ProductController::class, 'delete_product'])->name('delete_product')->middleware('auth');
 
-
-# User Profile (Product List) Route
-Route::get('/your_products', [HomeController::class, 'user_profile'])->name('user_profile')->middleware('auth');
 
 

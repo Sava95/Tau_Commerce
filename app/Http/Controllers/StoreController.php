@@ -60,6 +60,7 @@ class StoreController extends Controller
                 $products = Product::paginate(4);
 
                 $success_message = 'Changes saved';
+                
                 return view('home', compact('stores', 'products', 'success_message'));
             }
         } else {
